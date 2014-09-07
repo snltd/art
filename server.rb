@@ -10,6 +10,12 @@ require 'haml'
 #-----------------------------------------------------------------------------
 # METHODS
 #
+not_found do
+  @breadcrumbs = nil
+  @nofooter = true
+  haml :error_page
+end
+
 def generate_toc(base, dir)
   #
   # Generate a table of contents of images
@@ -27,11 +33,18 @@ def generate_toc(base, dir)
 end
 
 def get_pic_info(base, section, piece)
+
   #
   # fetch picture information. If we ever move to a DB, this will talk
   # to the DB.
   #
-  YAML.load(File.open(base + 'content' + section + "#{piece}.yaml"))
+  path = base + 'content' + section + "#{piece}.yaml"
+
+  if path.exist?
+    YAML.load(File.open(path))
+  else
+    raise Sinatra::NotFound
+  end
 end
 
 def get_pic_links(base, section)
@@ -81,8 +94,14 @@ end
 # SCRIPT STARTS HERE
 
 base = Pathname(__FILE__).dirname
-set :haml, format: :html5
+
 defs_116 = get_116_links(base)
+
+# Sinatra settings
+#
+set :haml, format: :html5
+set :root, base
+#set :environment, :production
 
 defs_116_by_date = defs_116.sort_by do |i|
   Date.strptime("#{i[:year]}-#{i[:month]}-#{i[:day]}")
@@ -165,6 +184,8 @@ get '/piece/series/1-116/:number' do
   @info = defs_116[n - 1]
   idx = defs_116_by_date.index(@info)
 
+  raise Sinatra::NotFound unless idx
+
   @links = {
     by_num: {
       next: n + 1,
@@ -200,6 +221,10 @@ end
 
 get '/:page' do
   @breadcrumbs = breadcrumbs
-  haml params[:page].to_sym
+  if (base + 'views' + "#{params[:page]}.haml").exist?
+    haml params[:page].to_sym
+  else
+    raise Sinatra::NotFound
+  end
 end
 
