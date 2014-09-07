@@ -1,0 +1,30 @@
+-@extra_css = %w(front_page)
+
+#fp_container
+
+  .fp_intro
+    :markdown
+      I am a painter and printmaker who lives and works in Sheffield,
+      England.
+
+      I also create digital art, and make books.
+
+  .fp_image
+    %img{src: 'http://rdfisher.co.uk/_i//big/after_the_big_bang.jpg',
+    width: 390, alt: 'After the Big Bang'}
+    ROBERT FISHER // ARTWORK
+
+  .fp_toc
+    %ol
+      %li
+        %a{href: '/imperfect_reproduction'}imperfect reproduction
+      %li
+        %a{href: '/series'}series paintings
+      %li
+        %a{href: '/squares_and_symbols'}squares and symbols
+      %li
+        %a{href: '/text_paintings'}text paintings
+      %li
+        %a{href: '/misc'}miscellany
+      %li
+        %a{href: '/about'}about

@@ -1,0 +1,110 @@
+- @pg_title = '1-116 // Random Number Generator'
+
+%h1
+  1-116 - Random number generator
+
+:markdown
+  Below is the computer program used to generate the random numbers for
+  the final sixty-seven pieces of *1-116*. It ran on [Solaris
+  10](https://www.flickr.com/photos/davelevy/sets/156746/), on a [Sun
+  v210](https://www.flickr.com/photos/davelevy/sets/156746/) server.
+
+<div class="ksh">
+
+<font color="#427cba">#!/bin/ksh</font><br>
+<br>
+<font color="#427cba">#=============================================================================</font><br>
+<font color="#427cba">#</font><br>
+<font color="#427cba"># number_generator.sh</font><br>
+<font color="#427cba"># -------------------</font><br>
+<font color="#427cba">#</font><br>
+<font color="#427cba"># Generate and email off a random number for painting project &quot;fifty-eight</font><br>
+<font color="#427cba"># percent&quot;.</font><br>
+<font color="#427cba"># </font><br>
+<font color="#427cba"># Requires a working mailx. Must be run as a user with cron privileges.</font><br>
+<font color="#427cba">#</font><br>
+<font color="#427cba"># R Fisher 03/08</font><br>
+<font color="#427cba">#</font><br>
+<font color="#427cba"># v1.0 Please record any changes below</font><br>
+<font color="#427cba">#</font><br>
+<font color="#427cba">#=============================================================================</font><br>
+<br>
+<br>
+<font color="#427cba">#-----------------------------------------------------------------------------</font><br>
+<font color="#427cba"># VARIABLES</font><br>
+<br>
+<font color="#5c0655">MIN</font>=<font color="#9b0b2d">1</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># Lowest acceptable number</font><br>
+<br>
+<font color="#5c0655">MAX</font>=<font color="#9b0b2d">116</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># Highest acceptable number</font><br>
+<br>
+<font color="#5c0655">USED_TBL</font>=<font color="#000000">&quot;</font><font color="#9b0b2d">/var/tmp/used_numbers.txt</font><span class="Statement">&quot;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># Where we record the numbers we've used. Takes the form</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># number:YYYY-MM-DD</font><br>
+<br>
+<font color="#5c0655">MAILTO</font>=<font color="#000000">&quot;</font><font
+color="#9b0b2d">someone@somewhere.com</font><span class="Statement">&quot;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># Where to mail the number</font><br>
+<br>
+<font color="#5c0655">PATH</font>=/usr/bin<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># Always set your PATH</font><br>
+<br>
+<font color="#5c0655">CRONTMP</font>=<font color="#000000">&quot;</font><font color="#9b0b2d">/tmp/cron</font><font color="#ff40ff">$$</font><span class="Statement">&quot;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># Temporary file to be used when this script removes itself from the</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#427cba"># crontab</font><br>
+<br>
+<font color="#427cba">#-----------------------------------------------------------------------------</font><br>
+<font color="#427cba"># SCRIPT STARTS HERE</font><br>
+<br>
+<font color="#427cba"># If the used numbers table doesn't exist, create it to stop grep</font><br>
+<font color="#427cba"># complaining</font><br>
+<br>
+<font color="#ff40ff">[[</font>&nbsp;<font color="#000000">-f</font><span class="shDblBrace">&nbsp;</span><font color="#ff40ff">$USED_TBL</font><span class="shDblBrace">&nbsp;</span><span class="Special">]]</span>&nbsp;<span class="Statement">||</span><span class="">&nbsp;</span><span class="Statement">&gt;</span><span class="PreProc">$USED_TBL</span><br>
+<br>
+<font color="#427cba"># How many numbers have we done so far? If we've done them all, we're going</font><br>
+<font color="#427cba"># to remove all traces of our existence.</font><br>
+<br>
+<font color="#5c0655">USED</font>=<font color="#ff40ff">$(</font><font color="#ff40ff">wc -l </font><span class="PreProc">$USED_TBL</span><span class="Special">&nbsp;</span><font color="#000000">|</font><span class="Special">&nbsp;tr -dc </span><span class="Statement">[[</span><span class="Special">:digit:</span><span class="Statement">]]</span><span class="PreProc">)</span><br>
+<font color="#5c0655">TOTAL</font>=<font color="#ff40ff">$((</font><span class="PreProc">$MAX</span><font color="#ff40ff">&nbsp;- </font><span class="PreProc">$MIN</span><span class="Special">&nbsp;+ </span><font color="#9b0b2d">1</font><span class="PreProc">))</span><br>
+<br>
+<font color="#000000">if</font>&nbsp;<font color="#ff40ff">[[</font>&nbsp;<font color="#ff40ff">$USED</font><span class="shDblBrace">&nbsp;</span><span class="Statement">-ge</span><span class="shDblBrace">&nbsp;</span><span class="PreProc">$TOTAL</span><span class="shDblBrace">&nbsp;</span><span class="Special">]]</span><br>
+<font color="#000000">then</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;crontab <font color="#000000">-l</font><span class="">&nbsp;&nbsp;</span><span class="Statement">|</span><span class="">&nbsp;</span><span class="Statement">grep</span><span class="">&nbsp;</span><span class="Statement">-v</span><span class="">&nbsp;</span><font color="#ff40ff">$0</font><span class="">&nbsp;</span><span class="Statement">&gt;</span><span class="PreProc">$CRONTMP</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;crontab <font color="#000000">-r</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;crontab <font color="#ff40ff">$CRONTMP</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">rm</font><span class="">&nbsp;</span><span class="Statement">-f</span><span class="">&nbsp;</span><font color="#ff40ff">$0</font><span class="">&nbsp;</span><span class="PreProc">$USED_TBL</span><span class="">&nbsp;</span><span class="PreProc">$CRONTMP</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#000000">exit</font><span class="">&nbsp;</span><font color="#9b0b2d">0</font><br>
+<font color="#000000">fi</font><br>
+<br>
+<font color="#427cba"># $RANDOM is from 0 to 32767, so chances are we won't be able to use the</font><br>
+<font color="#427cba"># number. It may also already have been used</font><br>
+<br>
+<font color="#5c0655">NUM</font>=<font color="#ff40ff">$RANDOM</font><br>
+<br>
+<font color="#000000">while</font><span class="Statement">&nbsp;</span><font color="#ff40ff">[[</font>&nbsp;<font color="#ff40ff">$NUM</font><span class="shDblBrace">&nbsp;</span><span class="Statement">-lt</span><span class="shDblBrace">&nbsp;</span><span class="PreProc">$MIN</span><span class="shDblBrace">&nbsp;</span><span class="Statement">||</span><span class="shDblBrace">&nbsp;</span><span class="PreProc">$NUM</span><span class="shDblBrace">&nbsp;</span><span class="Statement">-gt</span><span class="shDblBrace">&nbsp;</span><span class="PreProc">$MAX</span><span class="shDblBrace">&nbsp;</span><span class="Statement">||</span><span class="shDblBrace">&nbsp;</span><span class="Statement">-n</span><span class="shDblBrace">&nbsp;</span><span class="PreProc">$(</span><span class="Statement">grep</span><span class="Special">&nbsp;^</span><span class="PreProc">${</span><span class="PreProc">NUM</span><span class="PreProc">}</span><span class="Special">: </span><span class="PreProc">$USED_TBL</span><span class="PreProc">)</span><span class="shDblBrace">&nbsp;</span><span class="Special">]]</span><br>
+<font color="#000000">do</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#5c0655">NUM</font>=<font color="#ff40ff">$RANDOM</font><br>
+<font color="#000000">done</font><br>
+<br>
+<font color="#427cba"># We've got the number. Let's add it, along with the date, to the used table</font><br>
+<font color="#427cba"># file. Then we can mail out the number. </font><br>
+<br>
+<font color="#000000">print</font>&nbsp;<font color="#ff40ff">${</font><span class="PreProc">NUM</span><span class="PreProc">}</span><span class="">:</span><span class="PreProc">$(</span><font color="#ff40ff">date </font><span class="Statement">&quot;</span><font color="#9b0b2d">+%Y%d%m</font><span class="Statement">&quot;</span><span class="PreProc">)</span><span class="">&nbsp;</span><span class="Statement">&gt;&gt;</span><span class="PreProc">$USED_TBL</span><br>
+<br>
+<font color="#000000">mailx -s &quot;Today's number...&quot; $MAILTO &lt;-EOMAIL</font><br>
+<br>
+<font color="#9b0b2d">The number for </font><font color="#ff40ff">$(</font><font color="#ff40ff">date </font><font color="#000000">&quot;</font><span class="Constant">+%A %e %B %Y</span><span class="Statement">&quot;</span><span class="PreProc">)</span><span class="Constant">&nbsp;is:</span><br>
+<br>
+<br>
+<font color="#9b0b2d">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#ff40ff">$(</font><font color="#000000">print</font><font color="#ff40ff">&nbsp;xx</font><span class="PreProc">$NUM</span><span class="Special">&nbsp;</span><span class="Statement">|</span><span class="Special">&nbsp;</span><span class="Statement">sed</span><span class="Special">&nbsp;</span><span class="Statement">'</span><span class="Constant">s/./=/g</span><span class="Statement">'</span><span class="PreProc">)</span><br>
+<font color="#9b0b2d">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#ff40ff">$NUM</font><br>
+<font color="#9b0b2d">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#ff40ff">$(</font><font color="#000000">print</font><font color="#ff40ff">&nbsp;xx</font><span class="PreProc">$NUM</span><span class="Special">&nbsp;</span><span class="Statement">|</span><span class="Special">&nbsp;</span><span class="Statement">sed</span><span class="Special">&nbsp;</span><span class="Statement">'</span><span class="Constant">s/./=/g</span><span class="Statement">'</span><span class="PreProc">)</span><br>
+<br>
+<font color="#9b0b2d">This is number </font><font color="#ff40ff">$(</font><font color="#000000">(</font><span class="PreProc">$USED</span><font color="#ff40ff">&nbsp;+ </font><span class="Constant">1</span><span class="Statement">)</span><span class="PreProc">)</span><span class="Constant">&nbsp;of </span><span class="PreProc">$TOTAL</span><br>
+<font color="#9b0b2d">-----------------------------------------------------------------------------</font><br>
+<font color="#9b0b2d">Generated by </font><font color="#ff40ff">${</font><span class="PreProc">0</span><font color="#000000">##</font>*/<span class="PreProc">}</span><span class="Constant">&nbsp;running on </span><span class="PreProc">$(</span><font color="#ff40ff">uname -n</font><span class="PreProc">)</span><span class="Constant">.</span><br>
+<br>
+<font color="#000000">EOMAIL</font><br>
+</font>
+</div>

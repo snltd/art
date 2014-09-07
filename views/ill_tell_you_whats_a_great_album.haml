@@ -1,0 +1,38 @@
+- @pg_title = "I'll Tell You What's a Great Album"
+
+%h1
+  &#8220;
+  = @pg_title
+  &#8221;
+
+:markdown
+  *I'll Tell You What's a Great Album* is a single piece of work made up
+  of twenty album sleeves painted on beermats.
+
+  In the age of the digital download, music is copied perfectly and
+  instantaneously, being devalued more than just commercially. Sleeve
+  art is generally overlooked or completely ignored. This piece throws
+  the spotlight back onto this artwork, and the images have been
+  produced &quot;long-hand&quot;, imperfectly, and with considerable
+  effort. (Beer mats, which are made to soak up liquids, are horrible
+  things to paint on.)
+
+  The source for each painting is a real album sleeve. Selections were
+  made to cover as many original media as possible: collage; manga;
+  vector art; printmaking; black and white and colour photography; pen
+  and ink; industrial design; oil painting; and screen printing are all
+  represented and reproduced as accurately as possible. I also own, and
+  am fond of, each of the records represented.
+
+  All references to the album's maker and its title are removed. This is
+  an attempt to bring the sleeve art back to being a piece of art.  For
+  the same reason, on the explanatory panel, the people who made the
+  sleeve art are credited, whereas the bands who used the work are not.
+
+%table#pic_block
+  -@links.sort_by{|h| h[:fpath]}.each_slice(3) do |row|
+    %tr
+      -row.each do |cell|
+        %td
+          %a{href: "/piece/series/ill_tell_you_whats_a_great_album/#{cell[:fpath]}", class: 'tooltip', title: "<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>June #{cell[:year]}</div>"}
+            %img{src: "/i/thumbs/#{cell[:image]}", alt: "#{cell[:title]}"}

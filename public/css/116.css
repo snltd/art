@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------------------*/
+/* 1-116 */
+
+#cellscape {
+  border: 1px solid black;
+  background: white;
+  padding: 4em;
+  margin: 2em;
+}
+
+#cellscape table {
+  border-collapse: collapse;
+  border-spacing: 0px;
+  margin: 0 auto;
+}
+
+#cellscape td {
+    padding: 2px;
+}
+
+#cellscape img {
+    display: block;
+}
+
+#cellscape th {
+    font-size: small;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: normal;
+    padding-bottom: 1em;
+}
+
+#number_links, #layouts, #prevnext {
+    text-align: center;
+    font-size: x-small;
+    margin: 3em;
+}
+
+span.here {
+    text-decoration: underline;
+}

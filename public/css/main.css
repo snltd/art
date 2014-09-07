@@ -1,0 +1,148 @@
+body {
+  font-family: 'Roboto Slab', serif;
+  font-size: 0.9em;
+  text-align: justify;
+  background: #eeeeee;
+  color: #222;
+}
+
+a {
+  color: #131;
+  text-decoration: none;
+}
+
+p {
+  margin-bottom: 2em;
+}
+
+h1, h2, h3, h4 {
+  text-align: center;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
+  border-bottom: 2px dotted #888;
+}
+
+#navbar {
+  padding: 0.5em 2em;
+  background: #ccc;
+  border-bottom: 1px solid #888;
+}
+
+
+#container {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*--------------------------------------------------------------------------*/
+/* SECTION PAGES */
+
+#toc {
+  padding: 3em;
+  width: 600px;
+  margin: 0 auto;
+}
+
+#toc li {
+  list-style-type: none;
+  font-size: 0.8em;
+  clear: both;
+}
+
+#toc .toc_title {
+  font-size: 1.2em;
+  border-bottom: 1px dotted #888;
+  width: 470px;
+  margin-bottom: 10px;
+}
+
+#toc a {
+  font-size: 1.2em;
+  font-style: italic;
+  color: #353;
+}
+
+.red_dot {
+    color: red;
+}
+
+.details {
+    float: left;
+    margin-left: 2em;
+    text-align: left;
+    width: 470px;
+}
+
+.thumb {
+  float: right;
+  padding-bottom: 3em;
+}
+
+/*--------------------------------------------------------------------------*/
+/* PIECE PAGES */
+
+img.bigpic, .ksh {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#bigpicinfo {
+    text-align: center;
+    padding-top: 1em;
+}
+
+.picdesc {
+    padding-top: 2em;
+    margin: 0 10em;
+}
+
+.picprice {
+    padding-top: 2em;
+}
+
+.row {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#piece_navbar {
+    clear: both;
+    text-align: center;
+}
+
+#footer {
+    margin-top: 10em;
+    border-top: 1px solid #888;
+    padding: 1em;
+    text-align: right;
+    clear: both;
+}
+
+/*--------------------------------------------------------------------------*/
+/* Blocks of images */
+
+table#pic_block {
+  margin: 20px auto;
+  background: white;
+  border: 1px solid black;
+  padding: 40px;
+}
+
+#pic_block td {
+  padding: 10px;
+}
+
+
+/*--------------------------------------------------------------------------*/
+
+.ksh {
+  font-family: 'Source Code Pro';
+  width: 50em;
+  font-size: small;
+}

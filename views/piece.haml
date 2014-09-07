@@ -1,0 +1,32 @@
+%h1
+  &#8220;
+  =@info[:title]
+  &#8221;
+
+#bigpic
+  %img.bigpic{src: "/i/big/#{@info[:image]}", alt: "#{@info[:title]}"}
+
+#bigpicinfo
+  .picmedium
+    = @info[:medium]
+  .picsize
+    = "#{@info[:x]} x #{@info[:y]}cm"
+  .picdate
+    = DateTime.new(@info[:year], @info[:month]).strftime("%B %Y")
+
+  -if @info[:extra]
+    - @info[:extra].each do |row|
+      = row
+
+  -if @info[:desc]
+    .picdesc
+      :markdown
+        #{@info[:desc]}
+
+  -if @info[:price]
+    .picprice
+      -if @info[:price].is_a?(Fixnum) || @info[:price].match(/^\d+$/)
+        £
+      =@info[:price]
+
+= haml :piece_navbar

@@ -1,0 +1,39 @@
+#lbar {
+  float: right;
+  width: 150px;
+  padding: 20px;
+}
+
+#picnumber {
+  font-weight: bold;
+  font-size: 5em;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+#bigpicinfo {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px dotted #ccc;
+  text-align: right;
+  font-size: x-small;
+  line-height: 1.8em;
+}
+
+img.bigpic {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.picmedium, .picsize, .picdate {
+  padding-bottom: 1em;
+}
+
+.picdesc {
+}
+
+
