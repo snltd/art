@@ -29,7 +29,7 @@ def generate_toc(base, dir)
     ret
   end
 
-  toc.sort_by { |h| DateTime.new(h[:year], h[:month]) }.reverse
+  toc.sort_by { |h| [DateTime.new(h[:year], h[:month]), h[:title]] }.reverse
 end
 
 def get_pic_info(base, section, piece)
