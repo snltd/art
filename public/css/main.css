@@ -88,7 +88,7 @@ h1, h2, h3, h4 {
 /*--------------------------------------------------------------------------*/
 /* PIECE PAGES */
 
-img.bigpic, .ksh {
+img.bigpic, .ksh, #pic_block {
   border: 1px solid #ccc;
   background: white;
   padding: 25px;
@@ -135,8 +135,6 @@ img.bigpic, .ksh {
 
 table#pic_block {
   margin: 20px auto;
-  background: white;
-  border: 1px solid black;
   padding: 40px;
 }
 
