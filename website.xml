@@ -62,8 +62,8 @@
     exec='%{options/rackup} -D -p %{options/port} %{options/config}'>
     <method_context>
       <method_credential
-        user='www'
-        group='www'
+        user='sinatra'
+        group='nogroup'
         privileges='basic,!proc_session,!proc_info,!file_link_any'/>
     </method_context>
   </exec_method>
