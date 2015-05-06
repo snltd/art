@@ -30,11 +30,6 @@
     value='/opt/local/bin/rackup' />
 
 	<propval
-		name='user'
-		type='astring'
-    value='sinatra' />
-
-	<propval
 		name='dir'
 		type='astring'
     value='/www/rdfisher' />
@@ -67,7 +62,7 @@
     exec='%{options/rackup} -D -p %{options/port} %{options/dir}/config.ru'>
     <method_context>
       <method_credential
-        user='%{options/user}'
+        user='sinatra'
         group='nogroup'
         privileges='basic,!proc_session,!proc_info,!file_link_any'/>
     </method_context>
