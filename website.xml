@@ -2,10 +2,10 @@
 
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
 
-<service_bundle type='manifest' name='snltd:sinatra'>
+<service_bundle type='manifest' name='snltd:sinatra:rdfisher'>
 
 <service
-  name='application/sinatra'
+  name='application/sinatra/rdfisher'
 	type='service'
 	version='1'>
 
@@ -22,26 +22,31 @@
 
 </property_group>
 
-<property_group name='options' type='application'>
+<property_group name='options' type='applications'>
 
 	<propval
 		name='rackup'
 		type='astring'
-    value='/usr/local/ruby/bin/rackup' />
+    value='/opt/local/bin/rackup' />
 
 	<propval
-		name='config'
+		name='user'
 		type='astring'
-    value='/home/rob/work/new_rdfisher/config.ru' />
+    value='sinatra' />
+
+	<propval
+		name='dir'
+		type='astring'
+    value='/www/rdfisher' />
 
 	<propval
 		name='port'
 		type='astring'
-    value='1234' />
+    value='8001' />
 
 </property_group>
 
-<instance name='rdfisher' enabled='true'>
+<instance name='default' enabled='true'>
 
 	<!-- Run in multi-user mode -->
 
@@ -59,10 +64,10 @@
 		name='start'
 		type='method'
     timeout_seconds='0'
-    exec='%{options/rackup} -D -p %{options/port} %{options/config}'>
+    exec='%{options/rackup} -D -p %{options/port} %{options/dir}/config.ru'>
     <method_context>
       <method_credential
-        user='sinatra'
+        user='%{options/user}'
         group='nogroup'
         privileges='basic,!proc_session,!proc_info,!file_link_any'/>
     </method_context>
@@ -80,12 +85,12 @@
 
 	<common_name>
 		<loctext xml:lang='C'>
-			rdfisher.co.uk website
+      rdfisher.co.uk website
 		</loctext>
 	</common_name>
 
 	<documentation>
-		<doc_link name='rdfisher.co.uk' uri='http://rdfisher.co.uk/' />
+    <doc_link name='rdfisher.co.uk' uri='http://rdfisher.co.uk' />
 	</documentation>
 
 </template>
