@@ -25,7 +25,7 @@ h1
   img.bigpic src="/i/big/1-116/#{@info[:image]}" alt=@info[:title]
 
 -if @info[:desc]
-  .picdesc markdown: #{@info[:desc]}
+  .picdesc == markdown @info[:desc]
 
 #prevnext
   - if @links[:by_num][:prev] >= 1
