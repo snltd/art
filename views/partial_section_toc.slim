@@ -1,7 +1,7 @@
 -# This partial displays the links to pictures in the subsections of the
 -# site.
 
-%ul#toc
+ul#toc
   - @links.each do |l|
 
     -if l[:section]
@@ -12,28 +12,28 @@
       -else
         -linkto = "#{@base_url}/#{l[:dir]}"
 
-    %li
+    li
       .details
         .toc_title
-          %i
-            %a{href: "#{linkto}"}
-              =l[:title]
+          i
+            a href="#{linkto}"
+              == l[:title]
 
         -if l[:medium]
-          = l[:medium]
-          \//
+          => l[:medium]
+          ' //
           -if l[:x] and l[:y]
-            = "#{l[:x]} x #{l[:y]}cm"
-            \//
+            => "#{l[:x]} x #{l[:y]}cm"
+            ' //
           = DateTime.new(l[:year], l[:month]).strftime("%B %Y")
         -else
-          =l[:desc]
+          = l[:desc]
 
         -if l[:price] && l[:price] == 'sold' || l[:price] == 'lost'
-          %div
-            %span.red_dot.tooltip{title: 'sold'}
-              &#8226;
+          div
+            span.red_dot.tooltip title='sold'
+              | &#8226;
 
       .thumb
-        %a{href: "#{linkto}"}
-          %img{src: "/i/thumbs/#{l[:image]}", alt: l[:title]}
+        a href=linkto
+          img src="/i/thumbs/#{l[:image]}" alt=l[:title]

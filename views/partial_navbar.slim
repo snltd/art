@@ -1,0 +1,11 @@
+-if @breadcrumbs
+  #navbar
+    - @breadcrumbs.each_with_index do |(text, target), index|
+      -if target
+        a href=target
+          == text
+      -else
+        == text
+
+      -unless index == @breadcrumbs.length - 1
+        ' //

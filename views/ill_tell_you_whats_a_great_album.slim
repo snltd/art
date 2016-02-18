@@ -1,11 +1,11 @@
 - @pg_title = "I'll Tell You What's a Great Album"
 
-%h1
-  &#8220;
+h1
+  | &#8220;
   = @pg_title
-  &#8221;
+  | &#8221;
 
-:markdown
+markdown:
   *I'll Tell You What's a Great Album* is a single piece of work made up
   of twenty album sleeves painted on beermats.
 
@@ -29,10 +29,12 @@
   the same reason, on the explanatory panel, the people who made the
   sleeve art are credited, whereas the bands who used the work are not.
 
-%table#pic_block
+table#pic_block
   -@links.sort_by{|h| h[:fpath]}.each_slice(3) do |row|
-    %tr
-      -row.each do |cell|
-        %td
-          %a{href: "/piece/series/ill_tell_you_whats_a_great_album/#{cell[:fpath]}", class: 'tooltip', title: "<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>June #{cell[:year]}</div>"}
-            %img{src: "/i/thumbs/#{cell[:image]}", alt: "#{cell[:title]}"}
+    tr
+      - row.each do |cell|
+        td
+          a(href="/piece/series/ill_tell_you_whats_a_great_album/#{cell[:fpath]}"
+          class='tooltip'
+          title="<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>June #{cell[:year]}</div>")
+            img src="/i/thumbs/#{cell[:image]}" alt=cell[:title]
