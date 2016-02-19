@@ -1,4 +1,5 @@
-a(href="/piece/series/1-116/#{cell[:number]}"
-class='tooltip'
-title="<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>#{cell[:day]}/#{cell[:month]}/#{cell[:year]}</div>")
+- tt = markdown("#{cell[:number]}:  \"*#{cell[:title]}\"*  \n\
+#{cell[:medium]}  \n#{cell[:day]}/#{cell[:month]}/#{cell[:year]}")
+
+a(href="/piece/series/1-116/#{cell[:number]}" class='tooltip' title==tt)
   img src="/i/thumbs/1-116/#{size}/#{cell[:image]}" alt=cell[:title]

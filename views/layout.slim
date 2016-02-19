@@ -22,7 +22,7 @@ html lang='en'
       -@extra_css.each do |sheet|
         link href="/css/#{sheet}.css" rel='stylesheet' type='text/css'
     javascript:
-      $(document).ready(function()   $('.tooltip').tooltipster();  );
+      $(document).ready(function() { $('.tooltip').tooltipster();} );
 
   body
     == slim :partial_navbar
