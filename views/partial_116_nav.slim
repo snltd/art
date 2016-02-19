@@ -23,8 +23,12 @@
 
 #number_links
   - 1.upto(116) do |num|
-    a href="/piece/series/1-116/#{num}"
-      = num
-      | &nbsp;
-    -unless num == 116
+    - if num == @info[:number]
+      u = num
+    - else
+      a href="/piece/series/1-116/#{num}"
+        = num
+    | &nbsp;
+    - unless num == 116
       ' /
+
