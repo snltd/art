@@ -1,0 +1,16 @@
+- my_idx = @navlinks.index(@info[:fpath])
+
+#piece_navbar
+
+  - if my_idx > 0
+    a href=File.join('/piece', @info[:fdir], @navlinks[my_idx - 1])
+      ' previous
+    ' //
+
+  a href=@info[:fdir]
+    ' back to index
+
+  - if my_idx < (@navlinks.length - 1)
+    ' //
+    a href=File.join('/piece', @info[:fdir], @navlinks[my_idx + 1])
+      | next

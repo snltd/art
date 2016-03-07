@@ -1,11 +1,11 @@
-- @pg_title = "One in 2.65&#215;10<sup>32</sup>"
+- @pg_title = 'One in 2.65&#215;10<sup>32</sup>'
 
-%h1
-  &#8220;
-  = @pg_title
-  &#8221;
+h1
+  | &#8220;
+  == @pg_title
+  | &#8221;
 
-:markdown
+markdown:
   These text pictures loosely describe the steps, as conversions of
   energy, involved in making and playing a mixtape. "Side one" is the
   first person making the tape; "side two" is the second person
@@ -20,10 +20,12 @@
 
   Signed/numbered edition of sixteen, each on a different paper.
 
-%table#pic_block
+table#pic_block
   -@links.sort_by{|h| h[:fpath]}.each_slice(4) do |row|
-    %tr
+    tr
       -row.each do |cell|
-        %td
-          %a{href: "/piece/series/one_in_2.65x10-32/#{cell[:fpath]}", class: 'tooltip', title: "<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>April #{cell[:year]}</div>"}
-            %img{src: "/i/thumbs/#{cell[:image]}", alt: cell[:title]}
+        td
+          a(href="/piece/series/one_in_2.65x10-32/#{cell[:fpath]}"
+          class='tooltip'
+          title="<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>April #{cell[:year]}</div>")
+            img src="/i/thumbs/#{cell[:image]}" alt=cell[:title]

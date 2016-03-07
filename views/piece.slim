@@ -1,10 +1,10 @@
-%h1
-  &#8220;
-  =@info[:title]
-  &#8221;
+h1
+  | &#8220;
+  == @info[:title]
+  | &#8221;
 
 #bigpic
-  %img.bigpic{src: "/i/big/#{@info[:image]}", alt: "#{@info[:title]}"}
+  img.bigpic src="/i/big/#{@info[:image]}" alt=@info[:title]
 
 #bigpicinfo
   .picmedium
@@ -20,13 +20,12 @@
 
   -if @info[:desc]
     .picdesc
-      :markdown
-        #{@info[:desc]}
+      == markdown @info[:desc]
 
   -if @info[:price]
     .picprice
       -if @info[:price].is_a?(Fixnum) || @info[:price].match(/^\d+$/)
-        £
-      =@info[:price]
+        | £
+      = @info[:price]
 
-= haml :piece_navbar
+== slim :piece_navbar

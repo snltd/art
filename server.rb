@@ -5,7 +5,14 @@ require 'sinatra'
 require 'pathname'
 require 'date'
 require 'yaml'
-require 'haml'
+require 'slim'
+require 'kramdown'
+
+$kramdown_options = {
+  input:              'GFM',
+  syntax_highlighter: 'rouge',
+  hard_wrap:          false,
+}
 
 #-----------------------------------------------------------------------------
 # METHODS
@@ -13,7 +20,14 @@ require 'haml'
 not_found do
   @breadcrumbs = nil
   @nofooter = true
-  haml :error_page
+  slim :error_page
+end
+
+def markdown(raw)
+  #
+  # Slim can't render markdown in variables, it seems
+  #
+  Kramdown::Document.new(raw, $kramdown_options).to_html
 end
 
 def generate_toc(base, dir)
@@ -99,7 +113,6 @@ defs_116 = get_116_links(base)
 
 # Sinatra settings
 #
-set :haml, format: :html5
 set :root, base
 #set :environment, :production
 
@@ -111,7 +124,7 @@ breadcrumbs = { 'rdfisher.co.uk' => '/' }
 
 get '/' do
   @nofooter = true
-  haml :front_page
+  slim :front_page
 end
 
 %w(/imperfect_reproduction /misc /squares_and_symbols /series
@@ -121,7 +134,7 @@ end
     path[0] = '' if path[0] == '/'
     @links = generate_toc(base, path)
     @breadcrumbs = breadcrumbs.merge(get_section_name(base, path) => false)
-    haml path.to_sym
+    slim path.to_sym
   end
 end
 
@@ -130,7 +143,7 @@ get '/series/1-116/extras/:page' do
     get_section_name(base, 'series') => '/series',
     '1-116' => "/series/1-116'}"
   )
-  haml ('1-116_' + params[:page]).to_sym
+  slim ('1-116_' + params[:page]).to_sym
 end
 
 get '/series/1-116/?:filter?/?:layout?' do
@@ -154,7 +167,7 @@ get '/series/1-116/?:filter?/?:layout?' do
 
   @numcols = (params[:filter] == '42') ? 7 : 8
   @layout = params[:layout]
-  haml :'1-116'
+  slim :'1-116'
 end
 
 get '/series/:series' do
@@ -164,19 +177,19 @@ get '/series/:series' do
     get_section_name(base, 'series') => '/series',
     get_series_name(base, params[:series]) => false
   )
-  haml params[:series].to_sym
+  slim params[:series].to_sym
 end
 
 get '/piece/:section/:title' do
   @navlinks = get_pic_links(base, params[:section])
   @info = get_pic_info(base, params[:section], params[:title])
   @info[:fpath] = params[:title]
-  @info[:fdir] = params[:section]
+  @info[:fdir] = '/' + params[:section]
   @pg_title = @info[:title]
   @breadcrumbs = breadcrumbs.merge(
     get_section_name(base, params[:section]) => "/#{params[:section]}"
   )
-  haml :piece
+  slim :piece
 end
 
 get '/piece/series/1-116/:number' do
@@ -201,7 +214,7 @@ get '/piece/series/1-116/:number' do
     get_section_name(base, 'series') => '/series',
     '1-116' => "/series/1-116'}"
   )
-  haml :piece_116
+  slim :piece_116
 end
 
 get '/piece/series/:section/:title' do
@@ -210,21 +223,20 @@ get '/piece/series/:section/:title' do
   @info = get_pic_info(base, File.join('series', params[:section]),
                        params[:title])
   @info[:fpath] = params[:title]
-  @info[:fdir] = File.join('series', params[:section]).to_s
+  @info[:fdir] = File.join('/series', params[:section]).to_s
   @pg_title = @info[:title]
   @breadcrumbs = breadcrumbs.merge(
     get_section_name(base, 'series') => '/series',
     get_series_name(base, params[:section]) => "/series/#{params[:section]}"
   )
-  haml :piece
+  slim :piece
 end
 
 get '/:page' do
   @breadcrumbs = breadcrumbs
-  if (base + 'views' + "#{params[:page]}.haml").exist?
-    haml params[:page].to_sym
+  if (base + 'views' + "#{params[:page]}.slim").exist?
+    slim params[:page].to_sym
   else
     raise Sinatra::NotFound
   end
 end
-
