@@ -24,7 +24,7 @@ h1
 
   -if @info[:price]
     .picprice
-      -if @info[:price].is_a?(Fixnum) || @info[:price].match(/^\d+$/)
+      -if @info[:price].is_a?(Numeric) || @info[:price].match(/^\d+$/)
         | £
       = @info[:price]
 

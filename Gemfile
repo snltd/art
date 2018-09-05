@@ -1,6 +1,2 @@
 source 'https://rubygems.org'
-gem 'puma'
-gem 'thin'
-gem 'slim'
-gem 'sinatra'
-gem 'kramdown'
+gemspec
