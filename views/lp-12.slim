@@ -1,0 +1,33 @@
+- @pg_title = "LP-12"
+
+h1
+  | &#8220;
+  = @pg_title
+  | &#8221;
+
+markdown:
+  *LP-12* is a series of twelve pictures, each to do with some aspect of record
+  collecting.
+
+  Work on this series began in early 2009, when vinyl LPs were an anachronistic
+  minority interest. Now, in 2019, records are a popular fashion accessory and
+  the object of much fetishization. What started out as a pure celebration has
+  been soured by contrarianism, as what once seemed worth saying may now be
+  just clich\'e.
+
+  These paintings, each the size of a 12" LP sleeve, can be seen as tracks in a
+  visual album.  Each is a self-contained whole, but is sympathetic to its
+  companions. As a unifying concept, every painting makes reference to a
+  different artistic movement, and each has an epigram scratched into its
+  surface, in the way messages are often scratched into the run-out grooves of
+  records.
+
+table#pic_block
+  -@links.sort_by{|h| h[:fpath]}.each_slice(3) do |row|
+    tr
+      - row.each do |cell|
+        td
+          a(href="/piece/series/lp-12/#{cell[:fpath]}"
+          class='tooltip'
+          title="<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>June #{cell[:year]}</div>")
+            img src="/i/thumbs/#{cell[:image]}" alt=cell[:title]

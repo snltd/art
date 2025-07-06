@@ -1,9 +1,19 @@
+#sleevenotes {
+  width: 50em;
+  margin: 3em 10em 4em 10em;
+}
+  
+#artists-statement {
+  width: 50em;
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
 body {
   font-family: 'Roboto Slab', serif;
-  font-size: 0.9em;
-  text-align: justify;
-  background: #eeeeee;
-  color: #222;
+  line-height: 150%
+  background: #eee;
+  color: #111;
 }
 
 a {
@@ -36,7 +46,7 @@ h1, h2, h3, h4 {
 
 #container {
   padding-top: 3em;
-  width: 800px;
+  width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -46,25 +56,24 @@ h1, h2, h3, h4 {
 
 #toc {
   padding: 3em;
-  width: 600px;
+  width: 1024px;
   margin: 0 auto;
 }
 
 #toc li {
   list-style-type: none;
-  font-size: 0.8em;
   clear: both;
 }
 
 #toc .toc_title {
-  font-size: 1.2em;
   border-bottom: 1px dotted #888;
+  font-weight: bold;
   width: 470px;
   margin-bottom: 10px;
 }
 
 #toc a {
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
   font-style: italic;
   color: #353;
 }
@@ -147,7 +156,7 @@ table#pic_block {
 .ksh {
   font-family: 'Source Code Pro';
   width: 50em;
-  font-size: small;
+  /* font-size: small; */
 }
 
 /* FRONT PAGE */
@@ -179,7 +188,7 @@ table#pic_block {
 }
 
 .fp_toc ol {
-    list-style-type: lower-roman;
+  list-style-type: lower-roman;
 }
 
 img {

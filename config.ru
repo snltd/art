@@ -1,2 +1,4 @@
-require_relative 'bin/rdfisher.rb'
+# frozen_string_literal: true
+
+require_relative 'bin/art'
 run WebApp
