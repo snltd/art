@@ -116,6 +116,19 @@ class WebApp < Sinatra::Base
     slim :piece116
   end
 
+  get '/piece/series/lp-12/:title' do
+    @navlinks = pic_links('series/lp-12').sort
+    @info = pic_info('series/lp-12', params[:title])
+    @info[:fpath] = params[:title]
+    @info[:fdir] = '/series/lp-12'
+    @pg_title = @info[:title]
+    @breadcrumbs = breadcrumbs.merge(
+      section_name('series') => '/series',
+      series_name('lp-12') => "/series/#lp-12"
+    )
+    slim :piece_lp_12
+  end
+
   get '/piece/series/:section/:title' do
     @navlinks = pic_links(format('series/%s', params[:section])).sort
     @info = pic_info(format('series/%s', params[:section]),

@@ -4,25 +4,20 @@ html lang='en'
     meta charset='utf-8'
 
     -if @pg_title
-      title Robert Fisher // # @pg_title
+      title Rob Fisher // # @pg_title
     -else
-      title Robert Fisher
+      title Rob Fisher
 
     meta name='description' content='conceptual painting'
-    meta name='author' content='Robert Fisher'
+    meta name='author' content='Rob Fisher'
     meta name='viewport' content='width=device-width initial-scale=1'
     link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,700' rel='stylesheet'
     link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic' rel='stylesheet'
     link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400' rel='stylesheet' type='text/css'
-    script type='text/javascript' src='/js/jquery.min.js'
-    script type='text/javascript' src='/js/jquery.tooltipster.min.js'
-    link href='/css/tooltipster.css' rel='stylesheet' type='text/css'
     link href='/css/main.css' rel='stylesheet'
     -if @extra_css
       -@extra_css.each do |sheet|
         link href="/css/#{sheet}.css" rel='stylesheet' type='text/css'
-    javascript:
-      $(document).ready(function() { $('.tooltip').tooltipster();} );
 
   body
     == slim :partial_navbar
