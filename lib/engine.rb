@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'kramdown'
 
 def sections
@@ -9,16 +11,16 @@ def markdown(raw)
 end
 
 def section_contents(section)
-  toc = Pathname.glob(S_DIR + section + '*.yaml').map do |f, a|
-    YAML.load(IO.read(f)).tap { |p| p[:fpath] = f.basename.sub_ext('') }
+  toc = Pathname.glob(S_DIR.join(section, '*.yaml')).map do |f, _a|
+    YAML.load_file(f).tap { |p| p[:fpath] = f.basename.sub_ext('') }
   end
 
   toc.sort_by { |h| [DateTime.new(h[:year], h[:month]), h[:title]] }.reverse
 end
 
 def pic_info(section, piece)
-  YAML.load(IO.read(S_DIR + section + "#{piece}.yaml"))
-rescue
+  YAML.load_file(S_DIR.join(section, "#{piece}.yaml"))
+rescue StandardError
   raise Sinatra::NotFound
 end
 
@@ -27,15 +29,15 @@ def pic_links(section)
 end
 
 def section_name(section)
-  YAML.load(IO.read(S_DIR + "#{section}.yaml"))[:title]
+  YAML.load_file(S_DIR.join("#{section}.yaml"))[:title]
 end
 
 def series_name(series)
-  YAML.load(IO.read(S_DIR + 'series' + "#{series}.yaml"))[:title]
+  YAML.load_file(S_DIR.join('series', "#{series}.yaml"))[:title]
 end
 
-def pic_info_116(filter = nil)
-  defs = YAML.load(IO.read(S_DIR + 'series' + '1-116' + 'definitions.yaml'))
+def pic_info116(filter = nil)
+  defs = YAML.load_file(S_DIR.join('series', '1-116', 'definitions.yaml'))
 
   # The 42% paintings have a person's name attached, so we'll use that
   # fact to filter them out.
@@ -49,11 +51,10 @@ def pic_info_116(filter = nil)
   end
 end
 
-def pic_links_116
-  YAML.load(IO.read(S_DIR + 'series' + '1-116' + 'definitions.yaml'))
+def pic_links116
+  YAML.load_file(S_DIR.join('series', '1-116', 'definitions.yaml'))
 end
 
 def sort_116_by_date(data)
   data.sort_by { |i| Date.strptime("#{i[:year]}-#{i[:month]}-#{i[:day]}") }
 end
-

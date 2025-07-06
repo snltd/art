@@ -1,26 +1,26 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require 'sinatra'
+require 'sinatra/base'
 require 'pathname'
-require 'English'
-require 'date'
-require 'yaml'
 require 'slim'
 require_relative '../lib/engine'
 
 ROOT          = Pathname.new(__FILE__).dirname.parent.realpath
-S_DIR         = ROOT + 'sections'
+S_DIR         = ROOT.join('sections')
 SECTIONS      = sections
-KRAMDOWN_OPTS = { input:              'GFM',
+KRAMDOWN_OPTS = { input: 'GFM',
                   syntax_highlighter: 'rouge',
-                  hard_wrap:          false }.freeze
+                  hard_wrap: false }.freeze
 
+# Sinatra wrapper
+# rubocop:disable Metrics/ClassLength
 class WebApp < Sinatra::Base
-  breadcrumbs = { 'rdfisher.co.uk': '/' }
+  breadcrumbs = { 'art.id264.net': '/' }
 
-  defs_116 = pic_links_116
+  defs116 = pic_links116
 
-  defs_116_by_date = defs_116.sort_by do |i|
+  defs116_by_date = defs116.sort_by do |i|
     Date.strptime("#{i[:year]}-#{i[:month]}-#{i[:day]}")
   end
 
@@ -45,7 +45,7 @@ class WebApp < Sinatra::Base
     @navlinks = pic_links(params[:section])
     @info = pic_info(params[:section], params[:title])
     @info[:fpath] = params[:title]
-    @info[:fdir] = '/' + params[:section]
+    @info[:fdir] = "/#{params[:section]}"
     @pg_title = @info[:title]
     @breadcrumbs = breadcrumbs.merge(
       section_name(params[:section]) => "/#{params[:section]}"
@@ -57,15 +57,15 @@ class WebApp < Sinatra::Base
     @breadcrumbs = breadcrumbs.merge(
       section_name('series') => '/series', '1-116' => "/series/1-116'}"
     )
-    slim ('1-116_' + params[:page]).to_sym
+    slim :"1-116_#{params[:page]}"
   end
 
   get '/series/1-116/?:filter?/?:layout?' do
-    @info = pic_info_116(params[:filter])
+    @info = pic_info116(params[:filter])
     @breadcrumbs = breadcrumbs.merge(section_name('series') => '/series',
                                      '1-116' => false)
     @nomatch = "/#{params[:filter]}"
-    @nomatch.<< "/#{params[:layout]}" if params[:layout]
+    @nomatch << "/#{params[:layout]}" if params[:layout]
 
     if params[:layout] == 'by_date'
       @info = sort_116_by_date(@info)
@@ -94,8 +94,8 @@ class WebApp < Sinatra::Base
 
   get '/piece/series/1-116/:number' do
     n = params[:number].to_i
-    @info = defs_116[n - 1]
-    idx = defs_116_by_date.index(@info)
+    @info = defs116[n - 1]
+    idx = defs116_by_date.index(@info)
 
     raise Sinatra::NotFound unless idx
 
@@ -105,21 +105,21 @@ class WebApp < Sinatra::Base
         prev: n - 1
       },
       by_date: {
-        next: idx < 115 ? defs_116_by_date[idx + 1][:number] : false,
-        prev: idx > 0 ? defs_116_by_date[idx - 1][:number] : false
+        next: idx < 115 ? defs116_by_date[idx + 1][:number] : false,
+        prev: idx.positive? ? defs116_by_date[idx - 1][:number] : false
       }
     }
 
     @breadcrumbs = breadcrumbs.merge(
       section_name('series') => '/series', '1-116' => "/series/1-116'}"
     )
-    slim :piece_116
+    slim :piece116
   end
 
   get '/piece/series/:section/:title' do
     @navlinks = pic_links(format('series/%s', params[:section])).sort
     @info = pic_info(format('series/%s', params[:section]),
-                            params[:title])
+                     params[:title])
     @info[:fpath] = params[:title]
     @info[:fdir] = format('/series/%s', params[:section])
     @pg_title = @info[:title]
@@ -134,7 +134,7 @@ class WebApp < Sinatra::Base
     @breadcrumbs = breadcrumbs
     begin
       slim params[:page].to_sym
-    rescue
+    rescue StandardError
       raise Sinatra::NotFound
     end
   end
@@ -147,3 +147,4 @@ class WebApp < Sinatra::Base
 
   run! if $PROGRAM_NAME == __FILE__
 end
+# rubocop:enable Metrics/ClassLength
