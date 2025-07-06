@@ -1,15 +1,12 @@
-# fly.toml app configuration file generated for art-young-log-3876 on 2025-07-06T23:52:34+01:00
+# fly.toml app configuration file generated for art-wispy-pond-9796 on 2025-07-07T00:13:46+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'art-young-log-3876'
+app = 'art-wispy-pond-9796'
 primary_region = 'lhr'
 
 [build]
-
-[env]
-  APP_ENV = 'production'
 
 [http_service]
   internal_port = 8080
@@ -20,6 +17,6 @@ primary_region = 'lhr'
   processes = ['app']
 
 [[vm]]
-  memory = '256mb'
+  memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
