@@ -124,7 +124,7 @@ class WebApp < Sinatra::Base
     @pg_title = @info[:title]
     @breadcrumbs = breadcrumbs.merge(
       section_name('series') => '/series',
-      series_name('lp-12') => "/series/#lp-12"
+      series_name('lp-12') => "/series/lp-12"
     )
     slim :piece_lp_12
   end
