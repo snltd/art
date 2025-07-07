@@ -4,12 +4,11 @@ html lang='en'
     meta charset='utf-8'
 
     -if @pg_title
-      title Rob Fisher // # @pg_title
+      title= "#{@pg_title}"
     -else
-      title Rob Fisher
+      title Artwork
 
     meta name='description' content='conceptual painting'
-    meta name='author' content='Rob Fisher'
     meta name='viewport' content='width=device-width initial-scale=1'
     link href='https://fonts.googleapis.com/css?family=Roboto+Slab:300,700' rel='stylesheet'
     link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic' rel='stylesheet'
@@ -26,4 +25,9 @@ html lang='en'
 
       -unless @nofooter
         #footer
-          | &copy; 2024 Robert Fisher
+          ' technical stuff by
+          a href='https://sysdef.xyz'
+            ' Sysdef
+          '  / content &copy; 2005 -
+          == Time.now.year
+            | &copy; 2024 

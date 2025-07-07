@@ -13,7 +13,7 @@ markdown:
   minority interest. Now, in 2019, records are a popular fashion accessory and
   the object of much fetishization. What started out as a pure celebration has
   been soured by contrarianism, as what once seemed worth saying may now be
-  just clich\'e.
+  just clich&eacute;.
 
   These paintings, each the size of a 12" LP sleeve, can be seen as tracks in a
   visual album.  Each is a self-contained whole, but is sympathetic to its
@@ -23,11 +23,12 @@ markdown:
   records.
 
 table#pic_block
-  -@links.sort_by{|h| h[:fpath]}.each_slice(3) do |row|
+  -@links.sort_by{|h| h[:fpath]}.each_slice(6).with_index do |row, i|
+    tr
+      td 
+        '#{i + 1 }.
     tr
       - row.each do |cell|
         td
-          a(href="/piece/series/lp-12/#{cell[:fpath]}"
-          class='tooltip'
-          title="<div>#{cell[:number]}</div><div><em>#{cell[:title]}</em></div><div>#{cell[:medium]}</div><div>June #{cell[:year]}</div>")
+          a(href="/piece/series/lp-12/#{cell[:fpath]}")
             img src="/i/thumbs/#{cell[:image]}" alt=cell[:title]
