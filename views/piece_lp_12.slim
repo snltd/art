@@ -22,12 +22,6 @@ h1
     .picdesc
       == markdown @info[:desc]
 
-  -if @info[:price]
-    .picprice
-      -if @info[:price].is_a?(Numeric) || @info[:price].match(/^\d+$/)
-        | £
-      = @info[:price]
-
 #sleevenotes
   == markdown @info[:sleevenotes]
   
