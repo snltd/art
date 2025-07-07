@@ -5,9 +5,9 @@ Gem::Specification.new do |gem|
   gem.version       = ENV.fetch('RELEASE_VERSION',
                                 "0.0.#{Time.now.strftime('%Y%m%d')}")
 
-  gem.summary       = "Rob Fisher's art website"
-  gem.description   = 'Portfolio for artist Robert Fisher'
-  gem.authors       = ['Robert Fisher']
+  gem.summary       = "Art website"
+  gem.description   = 'Portfolio website'
+  gem.authors       = ['sysdef']
   gem.email         = 'info@sysdef.xyz'
   gem.homepage      = 'https://art.id264.net'
   gem.license       = 'BSD-2-Clause'
