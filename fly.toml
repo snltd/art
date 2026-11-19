@@ -1,22 +1,40 @@
-# fly.toml app configuration file generated for art-wispy-pond-9796 on 2025-07-07T00:13:46+01:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'art-wispy-pond-9796'
 primary_region = 'lhr'
+kill_signal = "SIGINT"
+kill_timeout = 5
 
-[build]
+[env]
+  RACK_ENV = "production"
+  APP_ENV = "production"
 
-[http_service]
+[experimental]
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
   internal_port = 8080
-  force_https = true
-  auto_stop_machines = 'stop'
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ['app']
+  protocol = "tcp"
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
 
-[[vm]]
-  memory = '512mb'
-  cpu_kind = 'shared'
-  cpus = 1
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+
+  [[statics]]
+    guest_path = "/public/css"
+    url_prefix = "/css"
+    
