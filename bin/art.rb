@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'sinatra/base'
-require 'pathname'
 require 'slim'
 require_relative '../lib/engine'
 
@@ -14,7 +13,7 @@ KRAMDOWN_OPTS = { input: 'GFM',
                   hard_wrap: false }.freeze
 
 # Sinatra wrapper
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 class WebApp < Sinatra::Base
   breadcrumbs = { 'art.id264.net': '/' }
 
@@ -124,8 +123,9 @@ class WebApp < Sinatra::Base
     @pg_title = @info[:title]
     @breadcrumbs = breadcrumbs.merge(
       section_name('series') => '/series',
-      series_name('lp-12') => "/series/lp-12"
+      series_name('lp-12') => '/series/lp-12'
     )
+    # rubocop:disable-next Naming/VariableNumber
     slim :piece_lp_12
   end
 
@@ -160,4 +160,3 @@ class WebApp < Sinatra::Base
 
   run! if $PROGRAM_NAME == __FILE__
 end
-# rubocop:enable Metrics/ClassLength

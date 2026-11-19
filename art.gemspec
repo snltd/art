@@ -5,7 +5,7 @@ Gem::Specification.new do |gem|
   gem.version       = ENV.fetch('RELEASE_VERSION',
                                 "0.0.#{Time.now.strftime('%Y%m%d')}")
 
-  gem.summary       = "Art website"
+  gem.summary       = 'Art website'
   gem.description   = 'Portfolio website'
   gem.authors       = ['sysdef']
   gem.email         = 'info@sysdef.xyz'
@@ -19,6 +19,6 @@ Gem::Specification.new do |gem|
                           'views/**/*', 'Rakefile', 'robots.txt']
   gem.require_paths = %w[lib]
 
-  gem.required_ruby_version = Gem::Requirement.new('>= 3.4.0')
+  gem.required_ruby_version = Gem::Requirement.new('>= 4.0.10')
   gem.metadata['rubygems_mfa_required'] = 'true'
 end
