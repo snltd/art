@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pathname'
 require 'rake/testtask'
 require 'rubocop/rake_task'
 require 'bundler/gem_tasks'

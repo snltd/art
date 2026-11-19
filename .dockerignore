@@ -1,9 +1,2 @@
-# flyctl launch added from .gitignore
-**/.yardoc
-doc
-**/.*swp
 **/*.gem
-**/.ruby-version
-**/spec/gen_test.sh
-**/spec/parabola.rb
 fly.toml
